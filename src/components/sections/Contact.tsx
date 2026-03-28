@@ -1,9 +1,11 @@
+
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Phone, MapPin, Mail } from "lucide-react";
 
 export function Contact() {
   const whatsappNumber = "+18098474966";
   const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}`;
+  const directionsLink = "https://maps.app.goo.gl/ChIJO6krQKuTqI4RlFVpCI15dLE";
 
   return (
     <section id="contacto" className="py-24 px-6 bg-primary text-white">
@@ -23,6 +25,7 @@ export function Contact() {
                 <div>
                   <h4 className="font-semibold text-lg">Oficina Central</h4>
                   <p className="text-slate-400">Carretera Verón-Punta Cana, Plaza Coral Hotel, Local #6.</p>
+                  <a href={directionsLink} target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline text-sm mt-1 inline-block">Cómo llegar</a>
                 </div>
               </div>
               

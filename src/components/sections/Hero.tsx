@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
@@ -28,7 +29,7 @@ export function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
             size="lg" 
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold px-8 text-lg rounded-full"
+            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold px-8 text-lg rounded-full shadow-lg"
             asChild
           >
             <a href="#proyectos">Ver Catálogo</a>
@@ -36,7 +37,7 @@ export function Hero() {
           <Button 
             variant="outline" 
             size="lg" 
-            className="border-white text-white hover:bg-white/10 px-8 text-lg rounded-full backdrop-blur-sm"
+            className="border-white text-white hover:bg-white/10 px-8 text-lg rounded-full backdrop-blur-sm shadow-lg"
             asChild
           >
             <a href="#contacto">Habla con un asesor</a>

@@ -1,8 +1,9 @@
+
 import { Facebook, Instagram, Linkedin, Map as MapIcon, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
-  const mapLink = "https://maps.app.goo.gl/cSmuynCsgcuqnnEA8?g_st=com.google.maps.preview.copy";
+  const directionsLink = "https://maps.app.goo.gl/ChIJO6krQKuTqI4RlFVpCI15dLE";
 
   return (
     <footer className="bg-slate-50 pt-20 pb-10 px-6 border-t border-slate-200">
@@ -34,7 +35,6 @@ export function Footer() {
               <li><a href="#" className="text-slate-600 hover:text-secondary transition-colors">Inicio</a></li>
               <li><a href="#proyectos" className="text-slate-600 hover:text-secondary transition-colors">Catálogo de Proyectos</a></li>
               <li><a href="#contacto" className="text-slate-600 hover:text-secondary transition-colors">Asesoría Gratuita</a></li>
-              <li><a href="/management" className="text-slate-600 hover:text-secondary transition-colors">Acceso Agentes</a></li>
             </ul>
           </div>
 
@@ -43,24 +43,26 @@ export function Footer() {
               <MapIcon className="h-5 w-5 text-secondary" />
               Nuestra Ubicación
             </h4>
-            <div className="w-full h-48 bg-slate-200 rounded-2xl overflow-hidden relative group shadow-inner">
-              {/* Placeholder for Map iframe - In a real app we'd use Google Maps Embed API */}
-              <div className="absolute inset-0 bg-slate-300 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <p className="text-slate-600 font-medium mb-4">Plaza Coral Hotel, Local #6</p>
-                  <Button variant="outline" className="bg-white border-primary text-primary hover:bg-primary hover:text-white" asChild>
-                    <a href={mapLink} target="_blank" rel="noopener noreferrer">
-                      Ver en Google Maps <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
+            <div className="w-full h-48 bg-slate-200 rounded-2xl overflow-hidden relative group shadow-inner border border-slate-200">
+              <div className="absolute inset-0 bg-slate-300 flex items-center justify-center z-10 pointer-events-none group-hover:opacity-0 transition-opacity">
+                 <div className="text-center p-6">
+                    <p className="text-slate-600 font-bold">Carretera Verón-Punta Cana</p>
+                    <p className="text-slate-500 text-sm">Plaza Coral Hotel, Local #6</p>
+                 </div>
               </div>
               <iframe 
-                className="w-full h-full border-0 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.3703673727937!2d-68.441452!3d18.6475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM4JzUxLjAiTiA2OMKwMjYnMjkuMiJX!5e0!3m2!1sen!2sdo!4v1621234567890!5m2!1sen!2sdo" 
+                className="w-full h-full border-0 relative z-0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0825310243293!2d-68.4439166!3d18.6386111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM4JzE5LjAiTiA2OMKwMjYnMzguMSJX!5e0!3m2!1ses!2sdo!4v1715632145678!5m2!1ses!2sdo" 
                 allowFullScreen={true} 
                 loading="lazy"
               ></iframe>
+              <div className="absolute bottom-4 right-4 z-20">
+                <Button variant="default" className="bg-primary text-white shadow-xl hover:scale-105 transition-transform" asChild>
+                  <a href={directionsLink} target="_blank" rel="noopener noreferrer">
+                    Cómo llegar <ExternalLink className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
