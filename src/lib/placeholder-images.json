@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-punta-cana",
+      "description": "Luxury beach in Punta Cana",
+      "imageUrl": "https://picsum.photos/seed/pc1/1920/1080",
+      "imageHint": "punta cana beach"
+    },
+    {
+      "id": "project-cristal",
+      "description": "Modern villa with pool",
+      "imageUrl": "https://picsum.photos/seed/pc2/800/600",
+      "imageHint": "luxury villa"
+    },
+    {
+      "id": "project-lotificacion",
+      "description": "Tropical landscape with residential plots",
+      "imageUrl": "https://picsum.photos/seed/pc3/800/600",
+      "imageHint": "tropical landscape"
+    },
+    {
+      "id": "agent-tool-bg",
+      "description": "Office with a view",
+      "imageUrl": "https://picsum.photos/seed/pc4/1200/800",
+      "imageHint": "modern office"
+    }
+  ]
 }
