@@ -1,11 +1,14 @@
 
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Phone, MapPin, Mail } from "lucide-react";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import Image from "next/image";
 
 export function Contact() {
   const whatsappNumber = "+18098474966";
   const whatsappLink = `https://wa.me/${whatsappNumber.replace('+', '')}`;
   const directionsLink = "https://maps.app.goo.gl/ChIJO6krQKuTqI4RlFVpCI15dLE";
+  const officeImg = PlaceHolderImages.find(img => img.id === 'office-storefront');
 
   return (
     <section id="contacto" className="py-24 px-6 bg-primary text-white">
@@ -16,6 +19,17 @@ export function Contact() {
             <p className="text-xl text-slate-300 mb-10 leading-relaxed">
               Estamos aquí para asesorarte en cada paso del proceso. Punta Cana te espera, asegura tu futuro hoy mismo con Jimenez Real Estate.
             </p>
+            
+            <div className="mb-10 rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+              <Image 
+                src={officeImg?.imageUrl || ""} 
+                alt={officeImg?.description || "Oficina Jimenez Real Estate"}
+                width={800}
+                height={450}
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                data-ai-hint={officeImg?.imageHint}
+              />
+            </div>
             
             <div className="space-y-6">
               <div className="flex items-start gap-4">

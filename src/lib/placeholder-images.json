@@ -23,6 +23,12 @@
       "description": "Oficina moderna con vista",
       "imageUrl": "https://picsum.photos/seed/pc4/1200/800",
       "imageHint": "modern office"
+    },
+    {
+      "id": "office-storefront",
+      "description": "Fachada de la oficina de Jimenez Real Estate en Plaza Coral Hotel",
+      "imageUrl": "https://picsum.photos/seed/pcoffice/800/450",
+      "imageHint": "real estate office storefront"
     }
   ]
 }
