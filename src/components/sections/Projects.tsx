@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
-import { MapPin, TrendingUp, Trees } from "lucide-react";
+import { MapPin, TrendingUp, Trees, MessageCircle } from "lucide-react";
 
 const projects = [
   {
@@ -12,7 +12,8 @@ const projects = [
     tags: ["Pre-Venta", "Naturaleza y Confort"],
     description: "Espacios diseñados para el bienestar, rodeados de vegetación autóctona y con todas las facilidades de la vida moderna.",
     image: PlaceHolderImages.find(img => img.id === 'project-cristal'),
-    features: ["Zona Verde", "Seguridad 24/7", "Servicios Soterrados"]
+    features: ["Zona Verde", "Seguridad 24/7", "Servicios Soterrados"],
+    whatsappMessage: "Hola Jimenez Real Estate, solicito información detallada y planos de la Lotificación Cristal"
   },
   {
     id: "lotificacion",
@@ -20,11 +21,14 @@ const projects = [
     tags: ["Ubicación Premium", "Inversión Estratégica"],
     description: "El punto estratégico para tu próxima gran inversión. Acceso directo a las principales vías de Verón-Punta Cana.",
     image: PlaceHolderImages.find(img => img.id === 'project-lotificacion'),
-    features: ["Alta Plusvalía", "Acceso Carretera Principal", "Cerca de Playas"]
+    features: ["Alta Plusvalía", "Acceso Carretera Principal", "Cerca de Playas"],
+    whatsappMessage: "Hola Jimenez Real Estate, quiero los detalles de inversión para la Lotificación Punta Cana"
   }
 ];
 
 export function Projects() {
+  const whatsappNumber = "18098474966";
+
   return (
     <section id="proyectos" className="py-24 px-6 bg-slate-50">
       <div className="max-w-7xl mx-auto">
@@ -75,8 +79,18 @@ export function Projects() {
                 </ul>
               </CardContent>
               <CardFooter className="pb-8">
-                <Button className="w-full bg-primary hover:bg-primary/90 text-white font-semibold rounded-full py-6">
-                  Solicitar Información
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90 text-white font-semibold rounded-full py-6 flex items-center justify-center gap-2"
+                  asChild
+                >
+                  <a 
+                    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(project.whatsappMessage)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="h-5 w-5 fill-current" />
+                    Solicitar Información
+                  </a>
                 </Button>
               </CardFooter>
             </Card>
