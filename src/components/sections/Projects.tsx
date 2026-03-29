@@ -46,12 +46,10 @@ export function Projects() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Manejo de reproducción garantizada con delay y silencio
   useEffect(() => {
     let playTimeout: NodeJS.Timeout;
 
     if (activeVideo && videoRef.current) {
-      // Pequeño retraso para asegurar que el modal se haya renderizado
       playTimeout = setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.play().catch(error => {
@@ -143,16 +141,16 @@ export function Projects() {
                         Ver Video
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-4xl p-0 overflow-hidden bg-black border-none z-[100]">
+                    <DialogContent className="max-w-5xl p-0 overflow-hidden bg-black border-none z-[100] sm:rounded-2xl">
                       <DialogHeader className="p-4 absolute top-0 left-0 right-0 z-[110] bg-gradient-to-b from-black/80 to-transparent">
-                        <DialogTitle className="text-white text-lg font-bold" id="video-dialog-title">
-                          {project.name}
+                        <DialogTitle className="text-white text-xl font-bold">
+                          Recorrido {project.name}
                         </DialogTitle>
-                        <DialogDescription className="text-slate-300 text-xs sr-only">
+                        <DialogDescription className="sr-only">
                           Video promocional mostrando el desarrollo y ubicación de {project.name}.
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="aspect-video w-full flex items-center justify-center bg-black">
+                      <div className="w-full h-full flex items-center justify-center bg-black">
                         {activeVideo && (
                           <video 
                             ref={videoRef}
@@ -161,7 +159,7 @@ export function Projects() {
                             muted 
                             playsInline 
                             preload="auto"
-                            className="w-full h-full object-contain shadow-2xl"
+                            className="w-full h-auto max-h-[85vh] aspect-video object-cover shadow-2xl"
                           >
                             <source src={activeVideo} type="video/mp4" />
                             Tu navegador no soporta el elemento de video.
