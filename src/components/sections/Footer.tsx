@@ -1,9 +1,10 @@
-
 import { Facebook, Instagram, Linkedin, Map as MapIcon, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
   const directionsLink = "https://maps.app.goo.gl/ChIJO6krQKuTqI4RlFVpCI15dLE";
+  const instagramLink = "https://www.instagram.com/jimenezrealestatecompanyjrc?igsh=MW83dTNsY3pxbW9odA==";
+  const facebookLink = "https://www.facebook.com/share/17uQ7Vq9a6/?mibextid=wwXIfr";
 
   return (
     <footer className="bg-slate-50 pt-20 pb-10 px-6 border-t border-slate-200">
@@ -17,14 +18,21 @@ export function Footer() {
               Expertos en desarrollo y venta de terrenos en el corazón de Punta Cana. Tu inversión segura comienza con nosotros.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm">
+              <a 
+                href={facebookLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm">
+              <a 
+                href={instagramLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm"
+              >
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors shadow-sm">
-                <Linkedin className="h-5 w-5" />
               </a>
             </div>
           </div>

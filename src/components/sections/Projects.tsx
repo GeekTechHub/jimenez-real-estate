@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -50,10 +49,12 @@ export function Projects() {
     let playTimeout: NodeJS.Timeout;
 
     if (activeVideo && videoRef.current) {
+      // Small delay to ensure the DOM is ready after Dialog animation
       playTimeout = setTimeout(() => {
         if (videoRef.current) {
+          videoRef.current.volume = 1.0;
           videoRef.current.play().catch(error => {
-            console.warn("Reproducción automática prevenida por el navegador:", error);
+            console.warn("Playback blocked or failed:", error);
           });
         }
       }, 150);
@@ -156,7 +157,6 @@ export function Projects() {
                             ref={videoRef}
                             src={activeVideo} 
                             controls 
-                            muted 
                             playsInline 
                             preload="auto"
                             className="w-full h-auto max-h-[85vh] aspect-video object-cover shadow-2xl"
