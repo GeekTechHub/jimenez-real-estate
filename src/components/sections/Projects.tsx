@@ -1,9 +1,20 @@
+
+"use client";
+
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
-import { MapPin, TrendingUp, Trees, MessageCircle } from "lucide-react";
+import { MapPin, TrendingUp, Trees, MessageCircle, Play, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const projects = [
   {
@@ -13,7 +24,9 @@ const projects = [
     description: "Espacios diseñados para el bienestar, rodeados de vegetación autóctona y con todas las facilidades de la vida moderna.",
     image: PlaceHolderImages.find(img => img.id === 'project-cristal'),
     features: ["Zona Verde", "Seguridad 24/7", "Servicios Soterrados"],
-    whatsappMessage: "Hola Jimenez Real Estate, solicito información detallada y planos de la Lotificación Cristal"
+    whatsappMessage: "Hola Jimenez Real Estate, solicito información detallada y planos de la Lotificación Cristal",
+    hasVideo: true,
+    videoSrc: "/src/assets/videos/lotificacion_cristal.mp4"
   },
   {
     id: "lotificacion",
@@ -22,12 +35,14 @@ const projects = [
     description: "El punto estratégico para tu próxima gran inversión. Acceso directo a las principales vías de Verón-Punta Cana.",
     image: PlaceHolderImages.find(img => img.id === 'project-lotificacion'),
     features: ["Alta Plusvalía", "Acceso Carretera Principal", "Cerca de Playas"],
-    whatsappMessage: "Hola Jimenez Real Estate, quiero los detalles de inversión para la Lotificación Punta Cana"
+    whatsappMessage: "Hola Jimenez Real Estate, quiero los detalles de inversión para la Lotificación Punta Cana",
+    hasVideo: false
   }
 ];
 
 export function Projects() {
   const whatsappNumber = "18098474966";
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   return (
     <section id="proyectos" className="py-24 px-6 bg-slate-50">
@@ -42,7 +57,7 @@ export function Projects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project) => (
-            <Card key={project.id} className="group overflow-hidden border-none shadow-xl hover:shadow-2xl transition-all duration-300 bg-white">
+            <Card key={project.id} className="group overflow-hidden border-none shadow-xl hover:shadow-2xl transition-all duration-300 bg-white flex flex-col">
               <div className="relative h-72 w-full overflow-hidden">
                 <Image
                   src={project.image?.imageUrl || ""}
@@ -65,7 +80,7 @@ export function Projects() {
                   {project.name}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-grow">
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   {project.description}
                 </p>
@@ -78,7 +93,7 @@ export function Projects() {
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter className="pb-8">
+              <CardFooter className="pb-8 flex flex-col gap-2">
                 <Button 
                   className="w-full bg-primary hover:bg-primary/90 text-white font-semibold rounded-full py-6 flex items-center justify-center gap-2"
                   asChild
@@ -92,6 +107,39 @@ export function Projects() {
                     Solicitar Información
                   </a>
                 </Button>
+
+                {project.hasVideo && (
+                  <Dialog onOpenChange={(open) => !open && setActiveVideo(null)}>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline"
+                        className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 w-full py-6 rounded-xl transition-all font-semibold"
+                        onClick={() => setActiveVideo(project.videoSrc || null)}
+                      >
+                        <Play className="h-5 w-5 mr-2" />
+                        Ver Video
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl p-0 overflow-hidden bg-black border-none">
+                      <DialogHeader className="p-4 absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/60 to-transparent">
+                        <DialogTitle className="text-white hidden">Video de Proyecto: {project.name}</DialogTitle>
+                      </DialogHeader>
+                      <div className="aspect-video w-full flex items-center justify-center">
+                        {activeVideo && (
+                          <video 
+                            src={activeVideo} 
+                            controls 
+                            autoPlay 
+                            playsInline 
+                            className="w-full h-full"
+                          >
+                            Tu navegador no soporta el elemento de video.
+                          </video>
+                        )}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                )}
               </CardFooter>
             </Card>
           ))}
