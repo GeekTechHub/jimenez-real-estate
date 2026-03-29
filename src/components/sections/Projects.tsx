@@ -46,16 +46,25 @@ export function Projects() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Manejo de reproducción automática y limpieza al cerrar
+  // Manejo de reproducción garantizada con delay y silencio
   useEffect(() => {
+    let playTimeout: NodeJS.Timeout;
+
     if (activeVideo && videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.warn("Auto-play blocked or failed:", error);
-      });
+      // Pequeño retraso para asegurar que el modal se haya renderizado
+      playTimeout = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(error => {
+            console.warn("Reproducción automática prevenida por el navegador:", error);
+          });
+        }
+      }, 150);
     } else if (!activeVideo && videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
     }
+
+    return () => clearTimeout(playTimeout);
   }, [activeVideo]);
 
   return (
@@ -135,21 +144,24 @@ export function Projects() {
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-4xl p-0 overflow-hidden bg-black border-none z-[100]">
-                      <DialogHeader className="p-4 absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/60 to-transparent">
-                        <DialogTitle className="text-white text-lg font-bold">{project.name}</DialogTitle>
-                        <DialogDescription className="sr-only">
-                          Video promocional del proyecto {project.name}. Muestra las vistas aéreas y el desarrollo de la lotificación.
+                      <DialogHeader className="p-4 absolute top-0 left-0 right-0 z-[110] bg-gradient-to-b from-black/80 to-transparent">
+                        <DialogTitle className="text-white text-lg font-bold" id="video-dialog-title">
+                          {project.name}
+                        </DialogTitle>
+                        <DialogDescription className="text-slate-300 text-xs sr-only">
+                          Video promocional mostrando el desarrollo y ubicación de {project.name}.
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="aspect-video w-full flex items-center justify-center">
+                      <div className="aspect-video w-full flex items-center justify-center bg-black">
                         {activeVideo && (
                           <video 
                             ref={videoRef}
                             src={activeVideo} 
                             controls 
+                            muted 
                             playsInline 
                             preload="auto"
-                            className="w-full h-full"
+                            className="w-full h-full object-contain shadow-2xl"
                           >
                             <source src={activeVideo} type="video/mp4" />
                             Tu navegador no soporta el elemento de video.
