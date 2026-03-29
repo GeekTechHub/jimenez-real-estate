@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
@@ -26,7 +27,7 @@ const projects = [
     features: ["Zona Verde", "Seguridad 24/7", "Servicios Soterrados"],
     whatsappMessage: "Hola Jimenez Real Estate, solicito información detallada y planos de la Lotificación Cristal",
     hasVideo: true,
-    videoSrc: "/src/assets/videos/lotificacion_cristal.mp4"
+    videoSrc: "/videos/lotificacion_cristal.mp4"
   },
   {
     id: "lotificacion",
@@ -43,6 +44,19 @@ const projects = [
 export function Projects() {
   const whatsappNumber = "18098474966";
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Manejo de reproducción automática y limpieza al cerrar
+  useEffect(() => {
+    if (activeVideo && videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.warn("Auto-play blocked or failed:", error);
+      });
+    } else if (!activeVideo && videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [activeVideo]);
 
   return (
     <section id="proyectos" className="py-24 px-6 bg-slate-50">
@@ -120,19 +134,24 @@ export function Projects() {
                         Ver Video
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-4xl p-0 overflow-hidden bg-black border-none">
+                    <DialogContent className="max-w-4xl p-0 overflow-hidden bg-black border-none z-[100]">
                       <DialogHeader className="p-4 absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/60 to-transparent">
-                        <DialogTitle className="text-white hidden">Video de Proyecto: {project.name}</DialogTitle>
+                        <DialogTitle className="text-white text-lg font-bold">{project.name}</DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Video promocional del proyecto {project.name}. Muestra las vistas aéreas y el desarrollo de la lotificación.
+                        </DialogDescription>
                       </DialogHeader>
                       <div className="aspect-video w-full flex items-center justify-center">
                         {activeVideo && (
                           <video 
+                            ref={videoRef}
                             src={activeVideo} 
                             controls 
-                            autoPlay 
                             playsInline 
+                            preload="auto"
                             className="w-full h-full"
                           >
+                            <source src={activeVideo} type="video/mp4" />
                             Tu navegador no soporta el elemento de video.
                           </video>
                         )}
