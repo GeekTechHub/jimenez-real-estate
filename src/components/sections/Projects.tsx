@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
-import { MapPin, TrendingUp, Trees, MessageCircle, Play, X } from "lucide-react";
+import { TrendingUp, Trees, MessageCircle, Play } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { DocumentsDialog, PROJECT_DOCUMENTS } from "./DocumentsDialog";
 
 const projects = [
   {
@@ -29,13 +30,13 @@ const projects = [
     videoSrc: "/videos/lotificacion_cristal.mp4"
   },
   {
-    id: "lotificacion",
-    name: "Lotificación Punta Cana",
+    id: "lirio-valles",
+    name: "Lirio de los Valles",
     tags: ["Ubicación Premium", "Inversión Estratégica"],
     description: "El punto estratégico para tu próxima gran inversión. Acceso directo a las principales vías de Verón-Punta Cana.",
     image: PlaceHolderImages.find(img => img.id === 'project-lotificacion'),
     features: ["Alta Plusvalía", "Acceso Carretera Principal", "Cerca de Playas"],
-    whatsappMessage: "Hola Jimenez Real Estate, quiero los detalles de inversión para la Lotificación Punta Cana",
+    whatsappMessage: "Hola Jimenez Real Estate, quiero los detalles de inversión para Lirio de los Valles",
     hasVideo: false
   }
 ];
@@ -49,7 +50,6 @@ export function Projects() {
     let playTimeout: NodeJS.Timeout;
 
     if (activeVideo && videoRef.current) {
-      // Small delay to ensure the DOM is ready after Dialog animation
       playTimeout = setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.volume = 1.0;
@@ -116,11 +116,11 @@ export function Projects() {
                 </ul>
               </CardContent>
               <CardFooter className="pb-8 flex flex-col gap-2">
-                <Button 
+                <Button
                   className="w-full bg-primary hover:bg-primary/90 text-white font-semibold rounded-full py-6 flex items-center justify-center gap-2"
                   asChild
                 >
-                  <a 
+                  <a
                     href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(project.whatsappMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -130,10 +130,15 @@ export function Projects() {
                   </a>
                 </Button>
 
+                <DocumentsDialog
+                  projectTitle={project.name}
+                  documents={PROJECT_DOCUMENTS[project.id] ?? []}
+                />
+
                 {project.hasVideo && (
                   <Dialog onOpenChange={(open) => !open && setActiveVideo(null)}>
                     <DialogTrigger asChild>
-                      <Button 
+                      <Button
                         variant="outline"
                         className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 w-full py-6 rounded-xl transition-all font-semibold"
                         onClick={() => setActiveVideo(project.videoSrc || null)}
@@ -153,11 +158,11 @@ export function Projects() {
                       </DialogHeader>
                       <div className="w-full h-full flex items-center justify-center bg-black">
                         {activeVideo && (
-                          <video 
+                          <video
                             ref={videoRef}
-                            src={activeVideo} 
-                            controls 
-                            playsInline 
+                            src={activeVideo}
+                            controls
+                            playsInline
                             preload="auto"
                             className="w-full h-auto max-h-[85vh] aspect-video object-cover shadow-2xl"
                           >
