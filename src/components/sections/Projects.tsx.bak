@@ -15,7 +15,7 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { DocumentsDialog, PROJECT_DOCUMENTS } from "./DocumentsDialog";
+import { DocumentsDialog } from "./DocumentsDialog";
 
 const projects = [
   {
@@ -130,10 +130,7 @@ export function Projects() {
                   </a>
                 </Button>
 
-                <DocumentsDialog
-                  projectTitle={project.name}
-                  documents={PROJECT_DOCUMENTS[project.id] ?? []}
-                />
+                <DocumentsDialog projectId={project.id} />
 
                 {project.hasVideo && (
                   <Dialog onOpenChange={(open) => !open && setActiveVideo(null)}>
